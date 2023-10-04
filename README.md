@@ -38,3 +38,5 @@ Ce code source est un point de départ pour la conception d'une API en Python av
 	`python server.py`
 
 - Tester les 3 routes avec votre navigateur ou avec **Postman**
+    http://127.0.0.1:5000/employees
+    ...
