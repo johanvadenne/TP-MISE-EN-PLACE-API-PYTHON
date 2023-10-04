@@ -1,14 +1,33 @@
 #!/usr/bin/python3
+
+# -------------------------------------------
+# Chargement des dépendances
+# -------------------------------------------
 from flask import Flask, request, jsonify
 from flask_restful import Resource, Api
 from sqlalchemy import create_engine
 from json import dumps
 
+
+# -------------------------------------------
+# Connexion en SQLite au fichier chinook.db
+# -------------------------------------------
 db_connect = create_engine('sqlite:///chinook.db')
+
+# -------------------------------------------
+# Lancement d'une application Flask
+# -------------------------------------------
 app = Flask(__name__)
+
+# -------------------------------------------
+# Lancement d'une API
+# -------------------------------------------
 api = Api(app)
 
 
+# -------------------------------------------
+# Définition de la classe Employees
+# -------------------------------------------
 class Employees(Resource):
     def get(self):
         conn = db_connect.connect() # connect to database
@@ -40,7 +59,10 @@ class Employees(Resource):
                              Email))
         return {'status':'success'}
 
-    
+
+# -------------------------------------------
+# Définition de la classe Tracks
+# -------------------------------------------
 class Tracks(Resource):
     def get(self):
         conn = db_connect.connect()
@@ -48,7 +70,10 @@ class Tracks(Resource):
         result = {'data': [dict(zip(tuple (query.keys()) ,i)) for i in query.cursor]}
         return jsonify(result)
 
-    
+
+# -------------------------------------------
+# Définition de la classe Employees_Name
+# -------------------------------------------   
 class Employees_Name(Resource):
     def get(self, employee_id):
         conn = db_connect.connect()
@@ -57,10 +82,13 @@ class Employees_Name(Resource):
         return jsonify(result)
 
 
+# -------------------------------------------
+# Création des routes
+# -------------------------------------------
 api.add_resource(Employees, '/employees') # Route_1
 api.add_resource(Tracks, '/tracks') # Route_2
 api.add_resource(Employees_Name, '/employees/<employee_id>') # Route_3
 
 
 if __name__ == '__main__':
-     app.run()
+    app.run()

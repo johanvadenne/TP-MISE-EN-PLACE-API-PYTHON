@@ -14,4 +14,6 @@ Ce code source est un point de départ pour la conception d'une API en Python av
 # Utilisation
 
 - Clonage du dépôt
+    https://github.com/LiliwoL/Python-API-REST
+
 - Installation des dépendances
