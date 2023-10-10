@@ -83,11 +83,23 @@ class Employees_Name(Resource):
 
 
 # -------------------------------------------
+# Définition de la classe artists
+# -------------------------------------------
+class Artists(Resource):
+    def get(self):
+        conn = db_connect.connect()
+        query = conn.execute("select * from artists;")
+        result = {'data': [dict(zip(tuple (query.keys()) ,i)) for i in query.cursor]}
+        return jsonify(result)
+
+
+# -------------------------------------------
 # Création des routes
 # -------------------------------------------
 api.add_resource(Employees, '/employees') # Route_1
 api.add_resource(Tracks, '/tracks') # Route_2
 api.add_resource(Employees_Name, '/employees/<employee_id>') # Route_3
+api.add_resource(Artists, '/artists') # Route_4
 
 
 if __name__ == '__main__':
